@@ -1,0 +1,54 @@
+cmake_minimum_required(VERSION 2.8)
+set(CMAKE_CXX_STANDARD 11)
+project(LLVM)
+
+# This tells the compiler to not aggressively optimize and
+# to include debugging information so that the debugger
+# can properly read what's going on.
+set(CMAKE_BUILD_TYPE Debug)
+
+# Let's ensure -std=c++xx instead of -std=g++xx
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Let's nicely support folders in IDE's
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+# Use Clang to compile our code 
+SET (CMAKE_C_COMPILER             "clang")
+SET (CMAKE_C_FLAGS                "-Wall -std=c99")
+SET (CMAKE_C_FLAGS_DEBUG          "-g")
+SET (CMAKE_C_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
+SET (CMAKE_C_FLAGS_RELEASE        "-O4 -DNDEBUG")
+SET (CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g")
+
+SET (CMAKE_CXX_COMPILER             "clang++")
+SET (CMAKE_CXX_FLAGS                "-std=c++1y -stdlib=libc++")
+SET (CMAKE_EXE_LINKER_FLAGS         "-stdlib=libc++ -lc++ -lc++abi")
+SET (CMAKE_CXX_FLAGS_DEBUG          "-g")
+SET (CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
+SET (CMAKE_CXX_FLAGS_RELEASE        "-O4 -DNDEBUG")
+SET (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
+
+
+# Append our source files 
+list(APPEND SOURCE_FILES    ${SOURCE_FILES}
+        src/LLVM_Reader/LLVMReader.cpp
+        src/LLVM_Graph/LLVMGraph.cpp
+        src/LLVM_Graph/Block.cpp
+        src/common.cpp)
+
+# Append test files 
+list(APPEND TEST_FILES ${TEST_FILES}
+        src/LLVM_Reader/LLVMReader.cpp
+        src/LLVM_Graph/LLVMGraph.cpp
+        src/LLVM_Graph/Block.cpp
+        tests/LLVMReader_test.cpp
+        tests/LLVMGraph_test.cpp)
+
+add_executable(main ${SOURCE_FILES} main.cpp)
+add_executable(bfs ${SOURCE_FILES} bfs.cpp)
+add_executable(pagerank ${SOURCE_FILES} pagerank.cpp)
+add_executable(dijkstra ${SOURCE_FILES} dijkstra.cpp)
+add_executable(test ${TEST_FILES})
+
+
