@@ -1,0 +1,32 @@
+1) What is a socket?
+A socket is a file descriptor that allows communication accross a network.
+
+2) What is the difference between the domains AF_INET and AF_UNIX?
+AF_INET is used for communication between machines, AF_UNIX is used for interprocess communication on the same machine.
+
+3) What is the difference between SOCK_STREAM and SOCK_DGRAM?
+SOCK_STREAM uses TCP while SOCK_DGRAM uses UDP.
+
+4) Why is it important to clear all the values the addrinfo struct before using it in getaddrinfo?
+If the fields aren't cleared the returned info might be inaccurate
+
+5) What are ai_family and ai_socktype?
+ai_family is the type of address to use (IPv4 vs IPv6) and ai_socktype is TCP vs UDP.
+
+6) What does getaddrinfo do?
+Converts a human-readable domain name (e.g. www.illinois.edu) into an IPv4 and IPv6 address. It will return a linked-list of addrinfo structs.
+
+7) What does connect do?
+Attempts to connect the socket to a remote machine.
+
+8) What is setsockopt?
+It manipulates options for the socket.
+
+9) What does bind do?
+It associates an abstract socket with an actual network interface and port.
+
+10) What does listen do?
+It specifies the queue size for the number of incoming, unhandled connections.
+
+11) What does accept do?
+It waits for new connections.
